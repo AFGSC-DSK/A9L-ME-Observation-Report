@@ -119,13 +119,7 @@ export class App {
                             el.appendChild(elViewLink);
                             let value = item.Title;
                             elViewLink.innerHTML = value;
-
-                            // Set color if admin or not
-                            if (this._isAdmin) {
-                                elViewLink.className = "text-success";
-                            } else {
-                                elViewLink.className = "text-primary";
-                            }
+                            elViewLink.className = "fw-bold text-primary";
                         },
                         onClickCell: (el, col, item: IItem) => {
                             // Show edit form if admin and view form if not
