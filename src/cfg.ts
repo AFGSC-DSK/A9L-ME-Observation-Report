@@ -13,33 +13,107 @@ export const Configuration = Helper.SPConfig({
             },
             CustomFields: [
                 {
-                    name: "ItemType",
-                    title: "Item Type",
+                    name: "EventName",
+                    title: "Event Name",
+                    type: Helper.SPCfgFieldType.Text,
+                    defaultValue: "",
+                    required: true
+                } as Helper.IFieldInfoText,
+                {
+                    name: "Topic",
+                    title: "Topic",
+                    type: Helper.SPCfgFieldType.Text,
+                    defaultValue: "",
+                    required: true
+                } as Helper.IFieldInfoText,
+                {
+                    name: "ObservedBy",
+                    title: "Observed By",
+                    type: Helper.SPCfgFieldType.User,
+                    required: true,
+                    selectionMode: SPTypes.FieldUserSelectionType.PeopleOnly,
+                } as Helper.IFieldInfoUser,
+                {
+                    name: "Observation",
+                    title: "Observation",
+                    type: Helper.SPCfgFieldType.Text,
+                    defaultValue: "",
+                    required: true
+                } as Helper.IFieldInfoText,
+                {
+                    name: "ObservationDate",
+                    title: "Observation Date",
+                    type: Helper.SPCfgFieldType.Date,
+                    format: SPTypes.DateFormat.DateTime,
+                    displayFormat: SPTypes.DateFormat.DateTime,
+                    defaultValue: "",
+                    required: true
+                } as Helper.IFieldInfoDate,
+                {
+                    name: "Classification",
+                    title: "Classification",
                     type: Helper.SPCfgFieldType.Choice,
-                    defaultValue: "Type 3",
+                    defaultValue: "(S)-Secret",
                     required: true,
                     choices: [
-                        "Type 1", "Type 2", "Type 3", "Type 4", "Type 5"
+                        "(S)-Secret", "(CUI)-Controlled Unclassified Information"
                     ]
                 } as Helper.IFieldInfoChoice,
                 {
-                    name: "Status",
-                    title: "Status",
+                    name: "SubmittedRecommendedOPR",
+                    title: "Submitted Recommended OPR",
+                    type: Helper.SPCfgFieldType.Text,
+                    defaultValue: "",
+                    required: true
+                } as Helper.IFieldInfoText,
+                {
+                    name: "DOTMLPF",
+                    title: "DOTMLPF",
                     type: Helper.SPCfgFieldType.Choice,
-                    defaultValue: "Draft",
+                    defaultValue: "D-Doctrine",
                     required: true,
-                    showInNewForm: false,
+                    showInNewForm: true,
                     choices: [
-                        "Draft", "Submitted", "Rejected", "Pending Approval",
-                        "Approved", "Archived"
+                        "D-Doctrine", "O-Organization", "T-Training", "M-Material",
+                        "L-Leadership", "P-Personnel", "F-Facilities"
                     ]
-                }
+                } as Helper.IFieldInfoChoice,
+                {
+                    name: "Discussion",
+                    title: "Discussion",
+                    type: Helper.SPCfgFieldType.Text,
+                    defaultValue: "",
+                    required: true
+                } as Helper.IFieldInfoText,
+                {
+                    name: "Recommendations",
+                    title: "Recommendations",
+                    type: Helper.SPCfgFieldType.Text,
+                    defaultValue: "",
+                    required: true
+                } as Helper.IFieldInfoText,
+                {
+                    name: "Implications",
+                    title: "Implications",
+                    type: Helper.SPCfgFieldType.Text,
+                    defaultValue: "",
+                    required: true
+                } as Helper.IFieldInfoText,
+                {
+                    name: "Keywords",
+                    title: "Keywords",
+                    type: Helper.SPCfgFieldType.Text,
+                    defaultValue: "",
+                    required: true
+                } as Helper.IFieldInfoText,                
             ],
             ViewInformation: [
                 {
                     ViewName: "All Items",
                     ViewFields: [
-                        "LinkTitle", "ItemType", "Status"
+                        "LinkTitle", "EventName", "Topic", "ObservedBy", "Observation", "ObservationDate",
+                        "Classification", "SubmittedRecommendedOPR", "DOTMLPF", "Discussion", "Recommendations",
+                        "Implications", "Keywords",
                     ]
                 }
             ]

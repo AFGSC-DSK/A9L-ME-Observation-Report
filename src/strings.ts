@@ -14,12 +14,12 @@ export const setContext = (context, sourceUrl?: string) => {
  * Global Constants
  */
 const Strings = {
-    AppElementId: "DattaBaseTemplate",
-    GlobalVariable: "DattaBaseTemplate",
+    AppElementId: "a9l_obv_rpt",
+    GlobalVariable: "a9l_obv_rpt",
     Lists: {
         Main: "Dashboard"
     },
-    ProjectName: "DattaBaseTemplate",
+    ProjectName: "A9-L Observation Report",
     ProjectDescription: "Created using the gd-sprest-bs library.",
     SolutionUrl: "/sites/dev/siteassets/sp-dashboard/index.html",
     SourceUrl: ContextInfo.webServerRelativeUrl,

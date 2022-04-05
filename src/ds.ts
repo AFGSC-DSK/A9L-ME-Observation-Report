@@ -3,8 +3,18 @@ import Strings from "./strings";
 
 // Item
 export interface IItem extends Types.SP.ListItem {
-    ItemType: string;
-    Status: string;
+    EventName: string;
+    Topic: string; 
+    ObservedBy: { Id: Number; Title: string }; 
+    Observation: string; 
+    ObservationDate: string;
+    Classification: string; 
+    SubmittedRecommendedOPR: string;
+    DOTMLPF: string;
+    Discussion: string; 
+    Recommendations: string;
+    Implications: string;
+    Keywords: string;
 }
 
 /**
@@ -18,7 +28,7 @@ export class DataSource {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the status field
-            Web(Strings.SourceUrl).Lists(Strings.Lists.Main).Fields("Status").execute((fld: Types.SP.FieldChoice) => {
+            Web(Strings.SourceUrl).Lists(Strings.Lists.Main).Fields("Classification").execute((fld: Types.SP.FieldChoice) => {
                 let items: Components.ICheckboxGroupItem[] = [];
 
                 // Parse the choices
@@ -79,7 +89,9 @@ export class DataSource {
             // Load the data
             Web(Strings.SourceUrl).Lists(Strings.Lists.Main).Items().query({
                 GetAllItems: true,
+                Expand: ["ObservedBy"],
                 OrderBy: ["Title"],
+                Select: ["*", "ObservedBy/Id", "ObservedBy/Title"],
                 Top: 5000
             }).execute(
                 // Success

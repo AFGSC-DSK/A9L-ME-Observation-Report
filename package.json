@@ -1,5 +1,5 @@
 {
-  "name": "DattaBase-Template",
+  "name": "a9l_obv_rpt",
   "version": "1.0.0",
   "main": "src/index.ts",
   "scripts": {
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AFGSC-DSK/DattaBase-Template.git"
+    "url": "git+https://github.com/AFGSC-DSK/a9l_obv_rpt.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AFGSC-DSK/DattaBase-Template/issues"
+    "url": "https://github.com/AFGSC-DSK/al9_obv_rpt/issues"
   },
-  "homepage": "https://github.com/AFGSC-DSK/DattaBase-Template#readme",
+  "homepage": "https://github.com/AFGSC-DSK/a9l_obv_rpt#readme",
   "dependencies": {
     "datatables.net": "^1.11.5",
     "datatables.net-bs5": "^1.11.5",

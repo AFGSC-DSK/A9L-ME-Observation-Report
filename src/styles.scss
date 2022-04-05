@@ -1,1 +1,47 @@
-/** Custom Styles Go Here */
+/** Button Group */
+.btn-group {
+    float: right !important;
+  }
+  /** Table Nav Header for the accordion */
+  .modal-body a.navbar-brand {
+    font-size: 13px !important;
+  }
+  /** Hides the table indexes in the itemForm */
+  #Step3Table .row {
+    display: none !important;
+  }
+  #Step4Table .row {
+    display: none !important;
+  }
+  
+  /** Hides the first webpart zone */
+  #DeltaPlaceHolderMain > table:first-child > tbody > tr:first-child > td:first-child {
+    width: 0%;
+  }
+  /** Makes the main webpart zone full width */
+  #DeltaPlaceHolderMain > table:first-child > tbody > tr:first-child > td:last-child {
+    width: 100%;
+  }
+  /* Hide the default search box */
+  #DeltaPlaceHolderSearchArea {
+    display: none;
+  }
+  /* Reset the left margin due to hiding sideNavBox */
+  #contentBox {
+    margin-left: 20px !important;
+  }
+  /* Remove the extra top padding on the content row */
+  #contentRow {
+    padding-top: 0 !important;
+  }
+  /* S4 Title row*/
+  #s4-titlerow {
+    display: none !important;
+  }
+  #sideNavBox {
+    display: none !important;
+  }
+  .ms-webpartPage-root {
+    border-spacing: 0px !important;
+    padding-top: 1vh !important;
+  }
