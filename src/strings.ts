@@ -19,7 +19,7 @@ const Strings = {
     Lists: {
         Main: "Dashboard"
     },
-    ProjectName: "A9-L Observation Report",
+    ProjectName: "A9L Observation Dashboard",
     ProjectDescription: "Created using the gd-sprest-bs library.",
     SolutionUrl: "/sites/dev/siteassets/sp-dashboard/index.html",
     SourceUrl: ContextInfo.webServerRelativeUrl,

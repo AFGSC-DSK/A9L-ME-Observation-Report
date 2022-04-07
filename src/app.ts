@@ -4,6 +4,7 @@ import * as jQuery from "jquery";
 import { DataSource, IItem } from "./ds";
 import Strings from "./strings";
 import * as moment from "moment";
+import { Options } from "./options"
 
 
 /**
@@ -24,6 +25,8 @@ export class App {
 
     // Renders the dashboard
     private render(el: HTMLElement) {
+        let options = new Options();
+
         // Create the dashboard
         let dashboard = new Dashboard({
             el,
@@ -232,6 +235,13 @@ export class App {
                     {
                         name: "Keywords",
                         title: "Keywords",
+                    },
+                    {
+                        name: "",
+                        title: "Email",
+                        onRenderCell: (el, column, item: IItem) => {
+                            options.dropdownMenu(el, item);
+                        }
                     }
                 ]
             }
