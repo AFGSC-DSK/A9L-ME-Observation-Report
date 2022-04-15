@@ -116,7 +116,17 @@ export const Configuration = Helper.SPConfig({
                     choices: [
                         "New", "Valid", "In-valid", "In-progress", "Closed"
                     ]
-                }               
+                },
+                {
+                    name: "EmailRecipients",
+                    title: "Email Recipients",
+                    type: Helper.SPCfgFieldType.User,
+                    multi: true,
+                    selectionMode: SPTypes.FieldUserSelectionType.PeopleOnly,
+                    showInViewForms: false,
+                    showInEditForm: false,
+                    showInNewForm: false,
+                } as Helper.IFieldInfoUser,             
             ],
             ViewInformation: [
                 {
@@ -124,7 +134,7 @@ export const Configuration = Helper.SPConfig({
                     ViewFields: [
                         "LinkTitle", "EventName", "Topic", "ObservedBy", "Observation", "ObservationDate",
                         "Classification", "SubmittedRecommendedOPR", "DOTMLPF", "Discussion", "Recommendations",
-                        "Implications", "Keywords", "Status"
+                        "Implications", "Keywords", "Status", "EmailRecipients"
                     ]
                 }
             ]

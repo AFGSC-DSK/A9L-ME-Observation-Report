@@ -47,13 +47,6 @@ export class Options {
         let form = Components.Form({
             controls: [
                 {
-                    name: "EmailRecipients",
-                    label: "Email Recipients",
-                    type: Components.FormControlTypes.TextField,
-                    required: true,
-                    errorMessage: "A selection is required to send an email.",
-                },
-                {
                     name: "EmailSubject",
                     label: "Email Subject",
                     required: true,
@@ -95,12 +88,14 @@ export class Options {
                             LoadingDialog.setBody("This dialog will close after the email is sent.");
                             LoadingDialog.show();
 
-                            // Determine who we are sending emails to
-                            let emailRecipients = values["EmailRecipients"] as string[];
+                            let recipients = [];
+                            for(let i = 0; i < item.EmailRecipients.results.length; i++) {
+                                recipients.push(item.EmailRecipients.results[i].EMail);
+                            }
                             
                             // Send the email
                             Utility().sendEmail({
-                                To: emailRecipients,
+                                To: recipients,
                                 Body: values["EmailBody"].replace(/\n/g, "<br />") + this.reportInfo(item),
                                 Subject: values["EmailSubject"]
                             }).execute(() => {

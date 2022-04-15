@@ -17,6 +17,13 @@ export interface IItem extends Types.SP.ListItem {
     Implications: string;
     Keywords: string;
     Status: string;
+    EmailRecipients: {
+        results: {
+            EMail: string;
+            Id: number;
+            Title: string;
+        }[]
+    };
 }
 
 // Configuration
@@ -81,19 +88,13 @@ export class DataSource {
             this.load().then(() => {
                 // Load the config file settings
                 this.loadConfiguration().then(() => {
-                    // Load the user name
-                    this.loadSecurityGroupUrls().then(() => {
-                        // Determine if the user is an admin
-                        this.GetAdminStatus().then(() => {
-                            // Load the status filters
-                            this.loadStatusFilters().then(() => {
-                                // Resolve the request
-                                resolve();
-                            }, reject);
-                        }, reject);
+                    // Load the status filters
+                    this.loadStatusFilters().then(() => {
+                        // Resolve the request
+                        resolve();
                     }, reject);
-                }, reject);
-            }, reject);
+                }, reject)
+            }, reject)
         });
     }
 
@@ -106,9 +107,11 @@ export class DataSource {
             // Load the data
             Web(Strings.SourceUrl).Lists(Strings.Lists.Main).Items().query({
                 GetAllItems: true,
-                Expand: ["AttachmentFiles", "ObservedBy"],
+                Expand: ["AttachmentFiles", "ObservedBy", "EmailRecipients"],
                 OrderBy: ["Status"],
-                Select: ["*", "ObservedBy/Id", "ObservedBy/Title"],
+                Select: ["*", "ObservedBy/Id", "ObservedBy/Title",
+                        "EmailRecipients/EMail", "EmailRecipients/Id", "EmailRecipients/Title"
+                ],
                 Top: 5000
             }).execute(
                 // Success
@@ -124,10 +127,6 @@ export class DataSource {
             );
         });
     }
-
-    // Event Registration Permissions
-    private static _eventRegPerms: Types.SP.BasePermissions;
-    static get EventRegPerms(): Types.SP.BasePermissions { return this._eventRegPerms; };
 
     // Check if user is an admin
     private static _isAdmin: boolean = false;
