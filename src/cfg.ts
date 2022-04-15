@@ -53,10 +53,10 @@ export const Configuration = Helper.SPConfig({
                     name: "Classification",
                     title: "Classification",
                     type: Helper.SPCfgFieldType.Choice,
-                    defaultValue: "(S)-Secret",
+                    defaultValue: "(S)-Secret//No FORON",
                     required: true,
                     choices: [
-                        "(S)-Secret", "(CUI)-Controlled Unclassified Information"
+                        "(S)-Secret//No FORON", "(CUI)-Controlled Unclassified Information"
                     ]
                 } as Helper.IFieldInfoChoice,
                 {
@@ -105,7 +105,18 @@ export const Configuration = Helper.SPConfig({
                     type: Helper.SPCfgFieldType.Text,
                     defaultValue: "",
                     required: true
-                } as Helper.IFieldInfoText,                
+                } as Helper.IFieldInfoText, 
+                {
+                    name: "Status",
+                    title: "Status",
+                    type: Helper.SPCfgFieldType.Choice,
+                    defaultValue: "New",
+                    required: true,
+                    showInNewForm: true,
+                    choices: [
+                        "New", "Valid", "In-valid", "In-progress", "Closed"
+                    ]
+                }               
             ],
             ViewInformation: [
                 {
@@ -113,7 +124,7 @@ export const Configuration = Helper.SPConfig({
                     ViewFields: [
                         "LinkTitle", "EventName", "Topic", "ObservedBy", "Observation", "ObservationDate",
                         "Classification", "SubmittedRecommendedOPR", "DOTMLPF", "Discussion", "Recommendations",
-                        "Implications", "Keywords",
+                        "Implications", "Keywords", "Status"
                     ]
                 }
             ]

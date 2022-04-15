@@ -1,4 +1,4 @@
-import { Dashboard, ItemForm } from "dattatable";
+import { Dashboard, ItemForm, LoadingDialog } from "dattatable";
 import { Components, ContextInfo, Web } from "gd-sprest-bs";
 import * as jQuery from "jquery";
 import { DataSource, IItem } from "./ds";
@@ -13,23 +13,46 @@ import { Options } from "./options"
 export class App {
     // Global Variables
     private _isAdmin: boolean = Web().AssociatedOwnerGroup().Users().getById(ContextInfo.userId).executeAndWait().IsSiteAdmin;
+    private _el: HTMLElement = null;
 
     // Constructor
     constructor(el: HTMLElement) {
         // Set the list name
         ItemForm.ListName = Strings.Lists.Main;
 
+        // Set the global variable
+        this._el = el;
+
         // Render the dashboard
-        this.render(el);
+        this.render();
+    }
+
+    // Refreshes the dashboard
+    private refresh() {
+        // Show a loading dialog
+        LoadingDialog.setHeader("Refreshing the Data");
+        LoadingDialog.setBody("This will close after the data is loaded.");
+
+        // Load the events
+        DataSource.init().then(() => {
+            // Clear the element
+            while (this._el.firstChild) { this._el.removeChild(this._el.firstChild); }
+
+            // Render the dashboard
+            this.render();
+
+            // Hide the dialog
+            LoadingDialog.hide();
+        });
     }
 
     // Renders the dashboard
-    private render(el: HTMLElement) {
+    private render() {
         let options = new Options();
 
         // Create the dashboard
         let dashboard = new Dashboard({
-            el,
+            el: this._el,
             hideHeader: true,
             useModal: true,
             filters: {
@@ -59,6 +82,14 @@ export class App {
                                         dashboard.refresh(items);
                                     });
                                 },
+                                // onCreateEditForm: (props) => {
+                                //     props.onControlRendering = (ctrl, field) => {
+                                //         if (field.InternalName == "Title") {
+                                //             field.InternalName = "Event Name";
+                                //         }
+                                //     }
+                                //     return props;
+                                // },
                                 onSetFooter: (elFooter) => {
                                     // Render the close button
                                     Components.Button({
@@ -114,7 +145,7 @@ export class App {
                 columns: [
                     {
                         name: "",
-                        title: "Title",
+                        title: "Event Name",
                         onRenderCell: (el, column, item: IItem) => {
                             // Displays clickable title
                             let elViewLink = document.createElement("a");
@@ -169,57 +200,17 @@ export class App {
                         }
                     },
                     {
-                        name: "EventName",
-                        title: "Event Name"
-                    },
-                    {
-                        name: "Topic",
-                        title: "Topic"
-                    },
-                    {
-                        name: "ObservedBy",
-                        title: "Observed By",
-                        onRenderCell: (el, column, item: IItem) => {
-                            el.innerHTML = item ? item.ObservedBy.Title : " ";
-                        }
-                    },
-                    {
                         name: "Observation",
                         title: "Observation"
                     },
-                    {
-                        name: "ObservationDate",
-                        title: "ObservationDate",
-                        onRenderCell: (el, column, item: IItem) => {
-                            let date = item[column.name];
-                            el.innerHTML =
-                                moment(date).format("MMMM DD, YYYY") +
-                                "<br/>";
-                            // Set the date/time filter/sort values
-                            el.setAttribute("data-filter", moment(item[column.name]).format("dddd MMMM DD YYYY"));
-                            el.setAttribute("data-sort", item[column.name]);
-                        }
-                    },
-                    {
-                        name: "Classification",
-                        title: "Classification",
-                        onRenderCell: (el, column, item: IItem) => {
-                            // Change classification text color            
-                            if (item.Classification == "(S)-Secret") {
-                                el.style.color = "red";
-                            } else if (item.Classification) {
-                                el.style.color = "purple";
-                            }
-                        }
-                    },
-                    {
-                        name: "SubmittedRecommendedOPR",
-                        title: "Submitted Recommended OPR"
-                    },
-                    {
-                        name: "DOTMLPF",
-                        title: "DOTMLPF"
-                    },
+                    // {
+                    //     name: "",
+                    //     title: "Documents",
+                    //     onRenderCell: (el, column, item: IItem) => {
+                    //         // Render the document column
+                    //         new DocumentsView(el, item, this._isAdmin, () => { this.refresh(); });
+                    //     },
+                    // },
                     {
                         name: "Discussion",
                         title: "Discussion"
@@ -229,12 +220,8 @@ export class App {
                         title: "Recommendations"
                     },
                     {
-                        name: "Implications",
-                        title: "Implications"
-                    },
-                    {
-                        name: "Keywords",
-                        title: "Keywords",
+                        name: "Status",
+                        title: "Status"
                     },
                     {
                         name: "",

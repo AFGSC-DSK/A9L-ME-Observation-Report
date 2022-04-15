@@ -3,7 +3,7 @@ import { ContextInfo } from "gd-sprest-bs";
 import { InstallationRequired } from "dattatable";
 import { App } from "./app";
 import { Configuration } from "./cfg";
-import { DataSource } from "./ds";
+import { DataSource, IItem } from "./ds";
 import Strings, { setContext } from "./strings";
 
 // Styling

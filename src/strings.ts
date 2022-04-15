@@ -19,8 +19,9 @@ const Strings = {
     Lists: {
         Main: "Dashboard"
     },
-    ProjectName: "A9L Observation Dashboard",
+    ProjectName: "AFGSC Lessons Learned",
     ProjectDescription: "Created using the gd-sprest-bs library.",
+    ObservationReportConfig: ContextInfo.webServerRelativeUrl + "/SiteAssets/obv_rpt2/obvrpt-config.json",
     SolutionUrl: "/sites/dev/siteassets/sp-dashboard/index.html",
     SourceUrl: ContextInfo.webServerRelativeUrl,
     Version: "0.1"

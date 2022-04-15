@@ -6,7 +6,6 @@ import { gearWideConnected } from "gd-sprest-bs/build/icons/svgs/gearWideConnect
 import { sliders } from "gd-sprest-bs/build/icons/svgs/sliders";
 import * as moment from "moment";
 import { Configuration } from "./cfg";
-
 export class Options {
 
     dropdownMenu(el: HTMLElement, item: IItem) {
@@ -22,7 +21,7 @@ export class Options {
 
     // Setter for email content info for report
     private reportInfo(item: IItem) {
-        let summaryView = `<h2><u>Report Entry Summary</u></h2>
+        let summaryView = `<h3><u>Observation Summary</u></h3>
                     <p><strong>Title: </strong>${item.Title}</p>
                     <p><strong>Event Name: </strong>${item.EventName}</p>
                     <p><strong>Topic: </strong>${item.Topic}</p>
@@ -98,14 +97,11 @@ export class Options {
 
                             // Determine who we are sending emails to
                             let emailRecipients = values["EmailRecipients"] as string[];
-                            for (let i = 0; i < emailRecipients.length; i++) {
-                                let emailRecipient = emailRecipients[i];
-                            }
-
+                            
                             // Send the email
                             Utility().sendEmail({
                                 To: emailRecipients,
-                                Body: `<h2><u>Email Message</u></h2>` + values["EmailBody"].replace(/\n/g, "<br />") + this.reportInfo(item),
+                                Body: values["EmailBody"].replace(/\n/g, "<br />") + this.reportInfo(item),
                                 Subject: values["EmailSubject"]
                             }).execute(() => {
                                 // Close the loading dialog
