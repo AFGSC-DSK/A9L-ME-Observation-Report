@@ -17,13 +17,14 @@ const Strings = {
     AppElementId: "a9l_obv_rpt",
     GlobalVariable: "a9l_obv_rpt",
     Lists: {
-        Main: "Dashboard"
+        Main: "Dashboard",
+        Contacts: "Recipients"
     },
     ProjectName: "AFGSC Lessons Learned",
     ProjectDescription: "Created using the gd-sprest-bs library.",
-    ObservationReportConfig: ContextInfo.webServerRelativeUrl + "/SiteAssets/obv_rpt2/obvrpt-config.json",
+    ObservationReportConfig: ContextInfo.webServerRelativeUrl + "/SiteAssets/AFGSC Lessons Learned/obvrpt-config.json",
     SolutionUrl: "/sites/dev/siteassets/sp-dashboard/index.html",
     SourceUrl: ContextInfo.webServerRelativeUrl,
-    Version: "0.1"
+    Version: "1.0"
 };
 export default Strings;

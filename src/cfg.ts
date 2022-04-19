@@ -13,32 +13,54 @@ export const Configuration = Helper.SPConfig({
             },
             CustomFields: [
                 {
+                    name: "ObservationID",
+                    title: "ObservationID",
+                    type: Helper.SPCfgFieldType.Text,
+                    defaultValue: "",
+                    required: false,
+                    showInViewForms: true,
+                    showInEditForm: true,
+                    showInNewForm: true,
+                } as Helper.IFieldInfoText,
+                {
                     name: "EventName",
                     title: "Event Name",
                     type: Helper.SPCfgFieldType.Text,
                     defaultValue: "",
-                    required: true
+                    required: false,
+                    showInViewForms: true,
+                    showInEditForm: true,
+                    showInNewForm: true,
                 } as Helper.IFieldInfoText,
                 {
                     name: "Topic",
                     title: "Topic",
                     type: Helper.SPCfgFieldType.Text,
                     defaultValue: "",
-                    required: true
+                    required: false,
+                    showInViewForms: false,
+                    showInEditForm: false,
+                    showInNewForm: false,
                 } as Helper.IFieldInfoText,
                 {
                     name: "ObservedBy",
                     title: "Observed By",
                     type: Helper.SPCfgFieldType.User,
-                    required: true,
+                    required: false,
                     selectionMode: SPTypes.FieldUserSelectionType.PeopleOnly,
+                    showInViewForms: false,
+                    showInEditForm: false,
+                    showInNewForm: false,
                 } as Helper.IFieldInfoUser,
                 {
                     name: "Observation",
                     title: "Observation",
                     type: Helper.SPCfgFieldType.Text,
                     defaultValue: "",
-                    required: true
+                    required: false,
+                    showInViewForms: true,
+                    showInEditForm: true,
+                    showInNewForm: true,
                 } as Helper.IFieldInfoText,
                 {
                     name: "ObservationDate",
@@ -47,14 +69,20 @@ export const Configuration = Helper.SPConfig({
                     format: SPTypes.DateFormat.DateTime,
                     displayFormat: SPTypes.DateFormat.DateTime,
                     defaultValue: "",
-                    required: true
+                    required: false,
+                    showInViewForms: false,
+                    showInEditForm: false,
+                    showInNewForm: false,
                 } as Helper.IFieldInfoDate,
                 {
                     name: "Classification",
                     title: "Classification",
                     type: Helper.SPCfgFieldType.Choice,
                     defaultValue: "(S)-Secret//No FORON",
-                    required: true,
+                    required: false,
+                    showInViewForms: false,
+                    showInEditForm: false,
+                    showInNewForm: false,
                     choices: [
                         "(S)-Secret//No FORON", "(CUI)-Controlled Unclassified Information"
                     ]
@@ -64,15 +92,20 @@ export const Configuration = Helper.SPConfig({
                     title: "Submitted Recommended OPR",
                     type: Helper.SPCfgFieldType.Text,
                     defaultValue: "",
-                    required: true
+                    required: false,
+                    showInViewForms: false,
+                    showInEditForm: false,
+                    showInNewForm: false,
                 } as Helper.IFieldInfoText,
                 {
                     name: "DOTMLPF",
                     title: "DOTMLPF",
                     type: Helper.SPCfgFieldType.Choice,
                     defaultValue: "D-Doctrine",
-                    required: true,
-                    showInNewForm: true,
+                    required: false,
+                    showInViewForms: false,
+                    showInEditForm: false,
+                    showInNewForm: false,
                     choices: [
                         "D-Doctrine", "O-Organization", "T-Training", "M-Material",
                         "L-Leadership", "P-Personnel", "F-Facilities"
@@ -83,62 +116,92 @@ export const Configuration = Helper.SPConfig({
                     title: "Discussion",
                     type: Helper.SPCfgFieldType.Text,
                     defaultValue: "",
-                    required: true
+                    required: false,
+                    showInViewForms: true,
+                    showInEditForm: true,
+                    showInNewForm: true,
                 } as Helper.IFieldInfoText,
                 {
                     name: "Recommendations",
                     title: "Recommendations",
                     type: Helper.SPCfgFieldType.Text,
                     defaultValue: "",
-                    required: true
+                    required: false,
+                    showInViewForms: true,
+                    showInEditForm: true,
+                    showInNewForm: true,
                 } as Helper.IFieldInfoText,
                 {
                     name: "Implications",
                     title: "Implications",
                     type: Helper.SPCfgFieldType.Text,
                     defaultValue: "",
-                    required: true
+                    required: false,
+                    showInViewForms: false,
+                    showInEditForm: false,
+                    showInNewForm: false,
                 } as Helper.IFieldInfoText,
                 {
                     name: "Keywords",
                     title: "Keywords",
                     type: Helper.SPCfgFieldType.Text,
                     defaultValue: "",
-                    required: true
+                    required: false,
+                    showInViewForms: false,
+                    showInEditForm: false,
+                    showInNewForm: false,
                 } as Helper.IFieldInfoText, 
                 {
                     name: "Status",
                     title: "Status",
                     type: Helper.SPCfgFieldType.Choice,
                     defaultValue: "New",
-                    required: true,
+                    required: false,
+                    showInViewForms: true,
+                    showInEditForm: true,
                     showInNewForm: true,
                     choices: [
                         "New", "Valid", "In-valid", "In-progress", "Closed"
                     ]
-                },
-                {
-                    name: "EmailRecipients",
-                    title: "Email Recipients",
-                    type: Helper.SPCfgFieldType.User,
-                    multi: true,
-                    selectionMode: SPTypes.FieldUserSelectionType.PeopleOnly,
-                    showInViewForms: false,
-                    showInEditForm: false,
-                    showInNewForm: false,
-                } as Helper.IFieldInfoUser,             
+                }            
             ],
             ViewInformation: [
                 {
                     ViewName: "All Items",
                     ViewFields: [
-                        "LinkTitle", "EventName", "Topic", "ObservedBy", "Observation", "ObservationDate",
+                        "LinkTitle", "ObservationID", "EventName", "Topic", "ObservedBy", "Observation", "ObservationDate",
                         "Classification", "SubmittedRecommendedOPR", "DOTMLPF", "Discussion", "Recommendations",
-                        "Implications", "Keywords", "Status", "EmailRecipients"
+                        "Implications", "Keywords", "Status"
                     ]
                 }
             ]
-        }
+        },
+        // {
+        //     ListInformation: {
+        //         Title: Strings.Lists.Contacts,
+        //         BaseTemplate: SPTypes.ListTemplateType.GenericList
+        //     },
+        //     CustomFields: [
+        //         {
+        //             name: "EmailRecipients",
+        //             title: "Email Recipients",
+        //             type: Helper.SPCfgFieldType.User,
+        //             multi: true,
+        //             selectionMode: SPTypes.FieldUserSelectionType.PeopleOnly,
+        //             showInViewForms: false,
+        //             showInEditForm: false,
+        //             showInNewForm: false,
+        //         } as Helper.IFieldInfoUser,  
+        //     ],
+        //     ViewInformation: [
+        //         {
+        //             ViewName: "All Recipients",
+        //             ViewFields: [
+        //                 "Email Recipients"
+        //             ]
+        //         }
+        //     ]
+        // }
     ]
 });
 

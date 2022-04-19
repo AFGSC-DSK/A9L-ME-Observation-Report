@@ -6,6 +6,7 @@ export interface IItem extends Types.SP.ListItem {
     Title: string;
     EventName: string;
     Topic: string;
+    ObservationID: string;
     ObservedBy: { Id: Number; Title: string };
     Observation: string;
     ObservationDate: string;
@@ -17,19 +18,15 @@ export interface IItem extends Types.SP.ListItem {
     Implications: string;
     Keywords: string;
     Status: string;
-    EmailRecipients: {
-        results: {
-            EMail: string;
-            Id: number;
-            Title: string;
-        }[]
-    };
+    Editor: { Id: number; Title: string; };
+    Modified: string;
 }
 
 // Configuration
 export interface IConfiguration {
     adminGroupName?: string;
     membersGroupName?: string;
+    emailRecipients?: string;
 }
 
 /**
@@ -43,7 +40,7 @@ export class DataSource {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the status field
-            Web(Strings.SourceUrl).Lists(Strings.Lists.Main).Fields("Classification").execute((fld: Types.SP.FieldChoice) => {
+            Web(Strings.SourceUrl).Lists(Strings.Lists.Main).Fields("Status").execute((fld: Types.SP.FieldChoice) => {
                 let items: Components.ICheckboxGroupItem[] = [];
 
                 // Parse the choices
@@ -85,16 +82,20 @@ export class DataSource {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Load the data
-            this.load().then(() => {
+            
+                this.loadStatusFilters().then(() => {
                 // Load the config file settings
                 this.loadConfiguration().then(() => {
-                    // Load the status filters
-                    this.loadStatusFilters().then(() => {
-                        // Resolve the request
-                        resolve();
+                    // Load the Admin/Memebers group
+                    this.GetAdminStatus().then(() => {
+                        // Load the status filters
+                        this.load().then(() => {
+                            // Resolve the request
+                            resolve();
+                        }, reject);
                     }, reject);
-                }, reject)
-            }, reject)
+                }, reject);
+            }, reject);
         });
     }
 
@@ -107,10 +108,10 @@ export class DataSource {
             // Load the data
             Web(Strings.SourceUrl).Lists(Strings.Lists.Main).Items().query({
                 GetAllItems: true,
-                Expand: ["AttachmentFiles", "ObservedBy", "EmailRecipients"],
+                Expand: ["ObservedBy", "Editor"],
                 OrderBy: ["Status"],
                 Select: ["*", "ObservedBy/Id", "ObservedBy/Title",
-                        "EmailRecipients/EMail", "EmailRecipients/Id", "EmailRecipients/Title"
+                         "Editor/Id", "Editor/Title"
                 ],
                 Top: 5000
             }).execute(
@@ -136,6 +137,7 @@ export class DataSource {
     private static GetAdminStatus(): PromiseLike<void> {
         return new Promise((resolve) => {
             if (this._cfg.adminGroupName) {
+                console.log("this._cfg.adminGroupName " + this._cfg.adminGroupName);
                 Web().SiteGroups().getByName(this._cfg.adminGroupName).Users().getById(ContextInfo.userId).execute(
                     () => { this._isAdmin = true; resolve(); },
                     () => { this._isAdmin = false; resolve(); }
@@ -156,6 +158,7 @@ export class DataSource {
     static loadConfiguration(): PromiseLike<void> {
         // Return a promise
         return new Promise(resolve => {
+            console.log("Strings.ObservationReportConfig" + Strings.ObservationReportConfig);
             // Get the current web
             Web().getFileByServerRelativeUrl(Strings.ObservationReportConfig).content().execute(
                 // Success
@@ -181,35 +184,6 @@ export class DataSource {
                     resolve();
                 }
             );
-        });
-    }
-
-    // Security Groups
-    private static _managerId: number = null;
-    static get ManagersUrl(): string { return ContextInfo.webServerRelativeUrl + "/_layouts/15/people.aspx?MembershipGroupId=" + this._managerId; };
-    private static _memberId: number = null;
-    static get MembersUrl(): string { return ContextInfo.webServerRelativeUrl + "/_layouts/15/people.aspx?MembershipGroupId=" + this._memberId; };
-    static get ListUrl(): string { return ContextInfo.webServerRelativeUrl + "/Lists/Dashboard/AllItems.aspx" };
-    static loadSecurityGroupUrls(): PromiseLike<void> {
-        return new Promise((resolve) => {
-            let web = Web();
-
-            // Load the owner's group
-            let ownersGroup = DataSource.Configuration.adminGroupName;
-            (ownersGroup ? Web().SiteGroups().getByName(ownersGroup) : Web().AssociatedOwnerGroup()).execute(group => {
-                // Set the id
-                this._managerId = group.Id;
-            });
-
-            // Load the member's group
-            let membersGroup = DataSource.Configuration.membersGroupName;
-            (membersGroup ? Web().SiteGroups().getByName(membersGroup) : Web().AssociatedMemberGroup()).execute(group => {
-                // Set the id
-                this._memberId = group.Id;
-            });
-
-            // Wait for the requests to complete
-            web.done(() => { resolve(); });
         });
     }
 }

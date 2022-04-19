@@ -12,7 +12,7 @@ import { Options } from "./options"
  */
 export class App {
     // Global Variables
-    private _isAdmin: boolean = Web().AssociatedOwnerGroup().Users().getById(ContextInfo.userId).executeAndWait().IsSiteAdmin;
+    private _isAdmin: boolean = DataSource.IsAdmin;
     private _el: HTMLElement = null;
 
     // Constructor
@@ -67,6 +67,7 @@ export class App {
             },
             navigation: {
                 title: Strings.ProjectName,
+                showFilter: false,
                 items: this._isAdmin ? [
                     {
                         className: "btn-outline-light",
@@ -140,12 +141,12 @@ export class App {
                         jQuery('th', thead).addClass('align-middle');
                     },
                     // Order by the 1st column by default; ascending
-                    order: [[1, "asc"]]
+                    order: [[2, "asc"]]
                 },
                 columns: [
                     {
                         name: "",
-                        title: "Event Name",
+                        title: "Title",
                         onRenderCell: (el, column, item: IItem) => {
                             // Displays clickable title
                             let elViewLink = document.createElement("a");
@@ -200,17 +201,24 @@ export class App {
                         }
                     },
                     {
-                        name: "Observation",
-                        title: "Observation"
+                        name: "Observation ID",
+                        title: "ObservationID",
+                        onRenderCell: (el, column, item: IItem) => {
+                            el.innerHTML = item.ObservationID ? item.ObservationID : "No Observation ID specified";
+                        }
                     },
-                    // {
-                    //     name: "",
-                    //     title: "Documents",
-                    //     onRenderCell: (el, column, item: IItem) => {
-                    //         // Render the document column
-                    //         new DocumentsView(el, item, this._isAdmin, () => { this.refresh(); });
-                    //     },
-                    // },
+                    {
+                        name: "Status",
+                        title: "Status"
+                    },
+                    {
+                        name: "EventName",
+                        title: "Event Name",
+                    },
+                    {
+                        name: "Observation",
+                        title: "Observation",
+                    },
                     {
                         name: "Discussion",
                         title: "Discussion"
@@ -220,16 +228,21 @@ export class App {
                         title: "Recommendations"
                     },
                     {
-                        name: "Status",
-                        title: "Status"
-                    },
-                    {
-                        name: "",
-                        title: "Email",
+                        name: "Modified By",
+                        title: "",
                         onRenderCell: (el, column, item: IItem) => {
-                            options.dropdownMenu(el, item);
+                            let modUser = item.Editor.Title;
+
+                            el.innerHTML = modUser;
                         }
                     }
+                    // {
+                    //     name: "",
+                    //     title: "Email",
+                    //     onRenderCell: (el, column, item: IItem) => {
+                    //         options.dropdownMenu(el, item);
+                    //     }
+                    // }
                 ]
             }
         });

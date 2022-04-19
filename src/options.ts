@@ -40,6 +40,9 @@ export class Options {
     }
 
     private sendEmail(item: IItem) {
+
+        // console.log(DataSource.Configuration.emailRec);
+
         // Set the modal header
         Modal.setHeader("Send Email");
 
@@ -88,14 +91,18 @@ export class Options {
                             LoadingDialog.setBody("This dialog will close after the email is sent.");
                             LoadingDialog.show();
 
-                            let recipients = [];
-                            for(let i = 0; i < item.EmailRecipients.results.length; i++) {
-                                recipients.push(item.EmailRecipients.results[i].EMail);
-                            }
+                            let recipientsList = [];
+                            let recipients = DataSource.Configuration.emailRecipients;
+                            recipientsList.push(DataSource.Configuration.emailRecipients);
+                            // for(let i = 0; i < item.EmailRecipients.results.length; i++) {
+                            //     recipientsList.push(item.EmailRecipients.results[i].EMail);
+                            // }
+
+                            console.log("Recipients", recipients);
                             
                             // Send the email
                             Utility().sendEmail({
-                                To: recipients,
+                                To: recipientsList,
                                 Body: values["EmailBody"].replace(/\n/g, "<br />") + this.reportInfo(item),
                                 Subject: values["EmailSubject"]
                             }).execute(() => {
