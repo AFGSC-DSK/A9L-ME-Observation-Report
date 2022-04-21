@@ -17,7 +17,7 @@ const Strings = {
     AppElementId: "a9l_obv_rpt",
     GlobalVariable: "a9l_obv_rpt",
     Lists: {
-        Main: "Dashboard",
+        Main: "Observation Report",
         Contacts: "Recipients"
     },
     ProjectName: "AFGSC Lessons Learned",

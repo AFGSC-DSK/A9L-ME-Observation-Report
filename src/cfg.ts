@@ -175,33 +175,7 @@ export const Configuration = Helper.SPConfig({
                     ]
                 }
             ]
-        },
-        // {
-        //     ListInformation: {
-        //         Title: Strings.Lists.Contacts,
-        //         BaseTemplate: SPTypes.ListTemplateType.GenericList
-        //     },
-        //     CustomFields: [
-        //         {
-        //             name: "EmailRecipients",
-        //             title: "Email Recipients",
-        //             type: Helper.SPCfgFieldType.User,
-        //             multi: true,
-        //             selectionMode: SPTypes.FieldUserSelectionType.PeopleOnly,
-        //             showInViewForms: false,
-        //             showInEditForm: false,
-        //             showInNewForm: false,
-        //         } as Helper.IFieldInfoUser,  
-        //     ],
-        //     ViewInformation: [
-        //         {
-        //             ViewName: "All Recipients",
-        //             ViewFields: [
-        //                 "Email Recipients"
-        //             ]
-        //         }
-        //     ]
-        // }
+        }
     ]
 });
 
