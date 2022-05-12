@@ -55,13 +55,14 @@ export const Configuration = Helper.SPConfig({
                 {
                     name: "Observation",
                     title: "Observation",
-                    type: Helper.SPCfgFieldType.Text,
+                    type: Helper.SPCfgFieldType.Note,
+                    noteType: SPTypes.FieldNoteType.EnhancedRichText,
                     defaultValue: "",
                     required: false,
                     showInViewForms: true,
                     showInEditForm: true,
                     showInNewForm: true,
-                } as Helper.IFieldInfoText,
+                }  as Helper.IFieldInfoNote,
                 {
                     name: "ObservationDate",
                     title: "Observation Date",
@@ -114,23 +115,25 @@ export const Configuration = Helper.SPConfig({
                 {
                     name: "Discussion",
                     title: "Discussion",
-                    type: Helper.SPCfgFieldType.Text,
+                    type: Helper.SPCfgFieldType.Note,
+                    noteType: SPTypes.FieldNoteType.EnhancedRichText,
                     defaultValue: "",
                     required: false,
                     showInViewForms: true,
                     showInEditForm: true,
                     showInNewForm: true,
-                } as Helper.IFieldInfoText,
+                } as Helper.IFieldInfoNote,
                 {
                     name: "Recommendations",
                     title: "Recommendations",
-                    type: Helper.SPCfgFieldType.Text,
+                    type: Helper.SPCfgFieldType.Note,
+                    noteType: SPTypes.FieldNoteType.EnhancedRichText,
                     defaultValue: "",
                     required: false,
                     showInViewForms: true,
                     showInEditForm: true,
                     showInNewForm: true,
-                } as Helper.IFieldInfoText,
+                } as Helper.IFieldInfoNote,
                 {
                     name: "Implications",
                     title: "Implications",
@@ -163,7 +166,18 @@ export const Configuration = Helper.SPConfig({
                     choices: [
                         "New", "Valid", "In-valid", "In-progress", "Closed"
                     ]
-                }            
+                },
+                {
+                    name: "Comments",
+                    title: "Comments",
+                    type: Helper.SPCfgFieldType.Note,
+                    noteType: SPTypes.FieldNoteType.EnhancedRichText,
+                    defaultValue: "",
+                    required: false,
+                    showInViewForms: true,
+                    showInEditForm: true,
+                    showInNewForm: true,
+                } as Helper.IFieldInfoNote,            
             ],
             ViewInformation: [
                 {
@@ -171,7 +185,7 @@ export const Configuration = Helper.SPConfig({
                     ViewFields: [
                         "LinkTitle", "ObservationID", "EventName", "Topic", "ObservedBy", "Observation", "ObservationDate",
                         "Classification", "SubmittedRecommendedOPR", "DOTMLPF", "Discussion", "Recommendations",
-                        "Implications", "Keywords", "Status"
+                        "Implications", "Keywords", "Status", "Comments"
                     ]
                 }
             ]

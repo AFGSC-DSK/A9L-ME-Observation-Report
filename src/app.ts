@@ -4,8 +4,8 @@ import * as jQuery from "jquery";
 import { DataSource, IItem } from "./ds";
 import Strings from "./strings";
 import * as moment from "moment";
-import { Options } from "./options"
-
+import { deleteForms } from "./deleteForms";
+import { Options } from "./options";
 
 /**
  * Main Application
@@ -83,14 +83,6 @@ export class App {
                                         dashboard.refresh(items);
                                     });
                                 },
-                                // onCreateEditForm: (props) => {
-                                //     props.onControlRendering = (ctrl, field) => {
-                                //         if (field.InternalName == "Title") {
-                                //             field.InternalName = "Event Name";
-                                //         }
-                                //     }
-                                //     return props;
-                                // },
                                 onSetFooter: (elFooter) => {
                                     // Render the close button
                                     Components.Button({
@@ -232,17 +224,38 @@ export class App {
                         title: "",
                         onRenderCell: (el, column, item: IItem) => {
                             let modUser = item.Editor.Title;
-
                             el.innerHTML = modUser;
                         }
+                    },
+                    {
+                        name: "Last Modified",
+                        title: "",
+                        onRenderCell: (el, column, item: IItem) => {
+                            let modDate = moment(item.Modified).format("MMMM DD, YYYY");
+                            el.innerHTML = modDate;
+                        }
+
+                    },
+                    {
+                        name: "Comments",
+                        title: "Current Status"
+                    },
+                    {
+                        name: "",
+                        title: "",
+                        onRenderCell: (el, column, item: IItem) => {
+                            if (this._isAdmin) {
+                                let deleteBtn = Components.Button({
+                                    el: el,
+                                    text: "Delete",
+                                    type: Components.ButtonTypes.OutlineDanger,
+                                    onClick: () => {
+                                        deleteForms.delete(item, () => { this.refresh(); });
+                                    }
+                                })
+                            }
+                        }
                     }
-                    // {
-                    //     name: "",
-                    //     title: "Email",
-                    //     onRenderCell: (el, column, item: IItem) => {
-                    //         options.dropdownMenu(el, item);
-                    //     }
-                    // }
                 ]
             }
         });

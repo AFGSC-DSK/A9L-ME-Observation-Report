@@ -18,6 +18,7 @@ export interface IItem extends Types.SP.ListItem {
     Implications: string;
     Keywords: string;
     Status: string;
+    Commments: string;
     Editor: { Id: number; Title: string; };
     Modified: string;
 }
@@ -82,7 +83,6 @@ export class DataSource {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Load the data
-            
                 this.loadStatusFilters().then(() => {
                 // Load the config file settings
                 this.loadConfiguration().then(() => {
