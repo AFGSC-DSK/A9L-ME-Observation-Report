@@ -6,6 +6,7 @@ import Strings from "./strings";
 import * as moment from "moment";
 import { deleteForms } from "./deleteForms";
 import { Options } from "./options";
+import { xSquareFill } from "gd-sprest-bs/build/icons/svgs/xSquareFill";
 
 /**
  * Main Application
@@ -25,6 +26,50 @@ export class App {
 
         // Render the dashboard
         this.render();
+    }
+
+    private viewEdit(item, dashboard) {
+        // Show edit form if admin or view form if not
+        if (this._isAdmin) {
+            // Show the edit form
+            ItemForm.edit({
+                itemId: item.Id,
+                onUpdate: () => {
+                    // Refresh the data
+                    DataSource.load().then(items => {
+                        // Update the data
+                        dashboard.refresh(items);
+                    });
+                },
+                onSetFooter: (elFooter) => {
+                    // Render the close button
+                    Components.Button({
+                        el: elFooter,
+                        text: "Cancel",
+                        type: Components.ButtonTypes.OutlineDanger,
+                        onClick: (button) => {
+                            ItemForm.close();
+                        }
+                    });
+                }
+            });
+        } else {
+            // Show the edit form
+            ItemForm.view({
+                itemId: item.Id,
+                onSetFooter: (elFooter) => {
+                    // Render the close button
+                    Components.Button({
+                        el: elFooter,
+                        text: "Close",
+                        type: Components.ButtonTypes.OutlineDanger,
+                        onClick: (button) => {
+                            ItemForm.close();
+                        }
+                    });
+                }
+            });
+        }
     }
 
     // Refreshes the dashboard
@@ -132,10 +177,30 @@ export class App {
                     headerCallback: function (thead, data, start, end, display) {
                         jQuery('th', thead).addClass('align-middle');
                     },
-                    // Order by the 1st column by default; ascending
+                    // Order by the 2nd column by default; ascending
                     order: [[2, "asc"]]
                 },
                 columns: [
+                    {
+                        name: "",
+                        title: "",
+                        onRenderCell: (el, column, item: IItem) => {
+                            if (this._isAdmin) {
+                                let deleteBtn = Components.Tooltip({
+                                    el: el,
+                                    content: "Delete Item",
+                                    btnProps: {
+                                        iconType: xSquareFill,
+                                        iconSize: 24,
+                                        type: Components.ButtonTypes.OutlineDanger,
+                                        onClick: () => {
+                                            deleteForms.delete(item, () => { this.refresh(); });
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    },
                     {
                         name: "",
                         title: "Title",
@@ -147,49 +212,20 @@ export class App {
                             let value = item.Title;
                             elViewLink.innerHTML = value;
                             elViewLink.className = "fw-bold text-primary";
+
+                            // let titleForm = Components.Tooltip({
+                            //     el: el,
+                            //     content: this._isAdmin ? "Edit item" : "View item",
+                            //     placement: Components.TooltipPlacements.Top,
+                            //     btnProps: {
+                            //        text: item.Title, 
+                            //        type: Components.ButtonTypes.Link,
+                            //        className: "fw-bold text-primary",
+                            //     }
+                            // });
                         },
                         onClickCell: (el, col, item: IItem) => {
-                            // Show edit form if admin and view form if not
-                            if (this._isAdmin) {
-                                // Show the edit form
-                                ItemForm.edit({
-                                    itemId: item.Id,
-                                    onUpdate: () => {
-                                        // Refresh the data
-                                        DataSource.load().then(items => {
-                                            // Update the data
-                                            dashboard.refresh(items);
-                                        });
-                                    },
-                                    onSetFooter: (elFooter) => {
-                                        // Render the close button
-                                        Components.Button({
-                                            el: elFooter,
-                                            text: "Cancel",
-                                            type: Components.ButtonTypes.OutlineDanger,
-                                            onClick: (button) => {
-                                                ItemForm.close();
-                                            }
-                                        });
-                                    }
-                                });
-                            } else {
-                                // Show the edit form
-                                ItemForm.view({
-                                    itemId: item.Id,
-                                    onSetFooter: (elFooter) => {
-                                        // Render the close button
-                                        Components.Button({
-                                            el: elFooter,
-                                            text: "Close",
-                                            type: Components.ButtonTypes.OutlineDanger,
-                                            onClick: (button) => {
-                                                ItemForm.close();
-                                            }
-                                        });
-                                    }
-                                });
-                            }
+                            this.viewEdit(item, dashboard);
                         }
                     },
                     {
@@ -239,22 +275,6 @@ export class App {
                     {
                         name: "Comments",
                         title: "Current Status"
-                    },
-                    {
-                        name: "",
-                        title: "",
-                        onRenderCell: (el, column, item: IItem) => {
-                            if (this._isAdmin) {
-                                let deleteBtn = Components.Button({
-                                    el: el,
-                                    text: "Delete",
-                                    type: Components.ButtonTypes.OutlineDanger,
-                                    onClick: () => {
-                                        deleteForms.delete(item, () => { this.refresh(); });
-                                    }
-                                })
-                            }
-                        }
                     }
                 ]
             }
