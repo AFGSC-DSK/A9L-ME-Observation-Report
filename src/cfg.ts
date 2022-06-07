@@ -19,8 +19,8 @@ export const Configuration = Helper.SPConfig({
                     defaultValue: "",
                     required: false,
                     showInViewForms: true,
-                    showInEditForm: true,
-                    showInNewForm: true,
+                    showInEditForm: false,
+                    showInNewForm: false,
                 } as Helper.IFieldInfoText,
                 {
                     name: "EventName",
@@ -90,13 +90,13 @@ export const Configuration = Helper.SPConfig({
                 } as Helper.IFieldInfoChoice,
                 {
                     name: "SubmittedRecommendedOPR",
-                    title: "Submitted Recommended OPR",
+                    title: "OPR",
                     type: Helper.SPCfgFieldType.Text,
                     defaultValue: "",
                     required: false,
-                    showInViewForms: false,
-                    showInEditForm: false,
-                    showInNewForm: false,
+                    showInViewForms: true,
+                    showInEditForm: true,
+                    showInNewForm: true,
                 } as Helper.IFieldInfoText,
                 {
                     name: "DOTMLPF",

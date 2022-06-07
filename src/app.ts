@@ -193,11 +193,8 @@ export class App {
                         }
                     },
                     {
-                        name: "Observation ID",
-                        title: "ObservationID",
-                        onRenderCell: (el, column, item: IItem) => {
-                            el.innerHTML = item.ObservationID ? item.ObservationID : "No Observation ID specified";
-                        }
+                        name: "ObservationID",
+                        title: "Observation ID"
                     },
                     {
                         name: "Status",
@@ -218,6 +215,10 @@ export class App {
                     {
                         name: "Recommendations",
                         title: "Recommendations"
+                    },
+                    {
+                        name: "SubmittedRecommendedOPR",
+                        title: "OPR"
                     },
                     {
                         name: "Modified By",

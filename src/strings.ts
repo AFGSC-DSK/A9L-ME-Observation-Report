@@ -17,10 +17,10 @@ const Strings = {
     AppElementId: "a9l_obv_rpt",
     GlobalVariable: "a9l_obv_rpt",
     Lists: {
-        Main: "Observation Report",
+        Main: "Global Thunder 2022 Ops Analysis Dashboard",
         Contacts: "Recipients"
     },
-    ProjectName: "AFGSC Lessons Learned",
+    ProjectName: "Global Thunder 2022 Ops Analysis Dashboard",
     ProjectDescription: "Created using the gd-sprest-bs library.",
     ObservationReportConfig: ContextInfo.webServerRelativeUrl + "/SiteAssets/AFGSC Lessons Learned/obvrpt-config.json",
     SolutionUrl: "/sites/dev/siteassets/sp-dashboard/index.html",
