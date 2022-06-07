@@ -157,7 +157,7 @@ export class App {
                     dom: 'rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
                     columnDefs: [
                         {
-                            "targets": 0,
+                            "targets": [0, 5, 6, 7, 11],
                             "orderable": false,
                             "searchable": false
                         }

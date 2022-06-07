@@ -14,7 +14,7 @@ export const Configuration = Helper.SPConfig({
             CustomFields: [
                 {
                     name: "ObservationID",
-                    title: "ObservationID",
+                    title: "Observation ID",
                     type: Helper.SPCfgFieldType.Text,
                     defaultValue: "",
                     required: false,
