@@ -18,7 +18,7 @@ export interface IItem extends Types.SP.ListItem {
     Implications: string;
     Keywords: string;
     Status: string;
-    Commments: string;
+    ActionTaken: string;
     Editor: { Id: number; Title: string; };
     Modified: string;
 }

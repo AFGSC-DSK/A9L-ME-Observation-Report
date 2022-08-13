@@ -17,8 +17,7 @@ const Strings = {
     AppElementId: "a9l_obv_rpt",
     GlobalVariable: "a9l_obv_rpt",
     Lists: {
-        Main: "Global Thunder 2022 Ops Analysis Dashboard",
-        Contacts: "Recipients"
+        Main: "Global Thunder 2022 Ops Analysis Dashboard"
     },
     ProjectName: "Global Thunder 2022 Ops Analysis Dashboard",
     ProjectDescription: "Created using the gd-sprest-bs library.",

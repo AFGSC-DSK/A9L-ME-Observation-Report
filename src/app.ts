@@ -183,26 +183,6 @@ export class App {
                 columns: [
                     {
                         name: "",
-                        title: "",
-                        onRenderCell: (el, column, item: IItem) => {
-                            if (this._isAdmin) {
-                                let deleteBtn = Components.Tooltip({
-                                    el: el,
-                                    content: "Delete Item",
-                                    btnProps: {
-                                        iconType: xSquareFill,
-                                        iconSize: 24,
-                                        type: Components.ButtonTypes.OutlineDanger,
-                                        onClick: () => {
-                                            deleteForms.delete(item, () => { this.refresh(); });
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    },
-                    {
-                        name: "",
                         title: "Title",
                         onRenderCell: (el, column, item: IItem) => {
                             // Displays clickable title
@@ -218,18 +198,6 @@ export class App {
                         }
                     },
                     {
-                        name: "ObservationID",
-                        title: "Observation ID"
-                    },
-                    {
-                        name: "Status",
-                        title: "Status"
-                    },
-                    {
-                        name: "EventName",
-                        title: "Event Name",
-                    },
-                    {
                         name: "Observation",
                         title: "Observation",
                     },
@@ -242,29 +210,44 @@ export class App {
                         title: "Recommendations"
                     },
                     {
+                        name: "LOE",
+                        title: "LOE"
+                    },
+                    {
+                        name: "ActionTaken",
+                        title: "Action Taken"
+                    },
+                    {
                         name: "SubmittedRecommendedOPR",
                         title: "OPR"
                     },
                     {
-                        name: "Modified By",
-                        title: "",
+                        name: "",
+                        title: "Status",
                         onRenderCell: (el, column, item: IItem) => {
-                            let modUser = item.Editor.Title;
-                            el.innerHTML = modUser;
+                            let statusDiv = document.createElement("div");
+                            el.appendChild(statusDiv);
+                            let statusValue = item.Status;
+                            statusDiv.innerHTML = statusValue;
+
+                            if(item.Status == "Closed") {
+                             statusDiv.className = "fw-bold text-success";
+                            } else if (item.Status == "In-Progress") {
+                                statusDiv.className = "fw-bold text-warning";
+                            } else if (item.Status == "Late") {
+                                statusDiv.className = "fw-bold text-danger";
+                            }
                         }
+
                     },
                     {
-                        name: "Last Modified",
+                        name: "Current as of",
                         title: "",
                         onRenderCell: (el, column, item: IItem) => {
                             let modDate = moment(item.Modified).format("MMMM DD, YYYY");
                             el.innerHTML = modDate;
                         }
 
-                    },
-                    {
-                        name: "Comments",
-                        title: "Current Status"
                     }
                 ]
             }

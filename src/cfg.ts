@@ -164,12 +164,12 @@ export const Configuration = Helper.SPConfig({
                     showInEditForm: true,
                     showInNewForm: true,
                     choices: [
-                        "New", "Valid", "In-valid", "In-progress", "Closed"
+                        "Closed", "In-Progress", "Late"
                     ]
-                },
+                }  as Helper.IFieldInfoChoice,
                 {
-                    name: "Comments",
-                    title: "Comments",
+                    name: "ActionTaken",
+                    title: "Action Taken",
                     type: Helper.SPCfgFieldType.Note,
                     noteType: SPTypes.FieldNoteType.EnhancedRichText,
                     defaultValue: "",
@@ -177,7 +177,17 @@ export const Configuration = Helper.SPConfig({
                     showInViewForms: true,
                     showInEditForm: true,
                     showInNewForm: true,
-                } as Helper.IFieldInfoNote,            
+                } as Helper.IFieldInfoNote, 
+                {
+                    name: "LOE",
+                    title: "LOE",
+                    type: Helper.SPCfgFieldType.Text,
+                    defaultValue: "",
+                    required: false,
+                    showInViewForms: true,
+                    showInEditForm: true,
+                    showInNewForm: true,
+                } as Helper.IFieldInfoText,         
             ],
             ViewInformation: [
                 {
