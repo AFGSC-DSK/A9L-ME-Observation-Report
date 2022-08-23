@@ -28,7 +28,7 @@ export class App {
         this.render();
     }
 
-    private viewEdit(item, dashboard) {
+    private formViewEdit(item) {
         // Show edit form if admin or view form if not
         if (this._isAdmin) {
             // Show the edit form
@@ -38,7 +38,7 @@ export class App {
                     // Refresh the data
                     DataSource.load().then(items => {
                         // Update the data
-                        dashboard.refresh(items);
+                        this.refresh();
                     });
                 },
                 onSetFooter: (elFooter) => {
@@ -194,7 +194,7 @@ export class App {
                             elViewLink.className = "fw-bold text-primary";
                         },
                         onClickCell: (el, col, item: IItem) => {
-                            this.viewEdit(item, dashboard);
+                            this.formViewEdit(item);
                         }
                     },
                     {
