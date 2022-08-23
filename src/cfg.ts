@@ -195,7 +195,7 @@ export const Configuration = Helper.SPConfig({
                     ViewFields: [
                         "LinkTitle", "ObservationID", "EventName", "Topic", "ObservedBy", "Observation", "ObservationDate",
                         "Classification", "SubmittedRecommendedOPR", "DOTMLPF", "Discussion", "Recommendations",
-                        "Implications", "Keywords", "Status", "Comments"
+                        "Implications", "Keywords", "Status", "ActionTaken", "LOE"
                     ]
                 }
             ]

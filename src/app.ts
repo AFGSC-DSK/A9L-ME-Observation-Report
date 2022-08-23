@@ -125,7 +125,7 @@ export class App {
                                     // Load the data
                                     DataSource.load().then(items => {
                                         // Refresh the table
-                                        dashboard.refresh(items);
+                                        this.refresh();
                                     });
                                 },
                                 onSetFooter: (elFooter) => {
