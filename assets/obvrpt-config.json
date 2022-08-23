@@ -1,5 +1,6 @@
 {
     "adminGroupName": "",
     "membersGroupName": "",
-    "emailRecipients": ""
+    "emailRecipients": "",
+    "dashboardTitle": ""
 }

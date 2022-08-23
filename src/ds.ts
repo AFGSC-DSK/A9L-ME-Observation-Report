@@ -28,6 +28,7 @@ export interface IConfiguration {
     adminGroupName?: string;
     membersGroupName?: string;
     emailRecipients?: string;
+    dashboardTitle?: string;
 }
 
 /**
@@ -83,15 +84,17 @@ export class DataSource {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Load the data
-                this.loadStatusFilters().then(() => {
+            this.loadStatusFilters().then(() => {
                 // Load the config file settings
                 this.loadConfiguration().then(() => {
                     // Load the Admin/Memebers group
                     this.GetAdminStatus().then(() => {
-                        // Load the status filters
-                        this.load().then(() => {
-                            // Resolve the request
-                            resolve();
+                        this.SetTitle().then(() => {
+                            // Load the status filters
+                            this.load().then(() => {
+                                // Resolve the request
+                                resolve();
+                            }, reject);
                         }, reject);
                     }, reject);
                 }, reject);
@@ -111,7 +114,7 @@ export class DataSource {
                 Expand: ["ObservedBy", "Editor"],
                 OrderBy: ["Status"],
                 Select: ["*", "ObservedBy/Id", "ObservedBy/Title",
-                         "Editor/Id", "Editor/Title"
+                    "Editor/Id", "Editor/Title"
                 ],
                 Top: 5000
             }).execute(
@@ -137,7 +140,6 @@ export class DataSource {
     private static GetAdminStatus(): PromiseLike<void> {
         return new Promise((resolve) => {
             if (this._cfg.adminGroupName) {
-                console.log("this._cfg.adminGroupName " + this._cfg.adminGroupName);
                 Web().SiteGroups().getByName(this._cfg.adminGroupName).Users().getById(ContextInfo.userId).execute(
                     () => { this._isAdmin = true; resolve(); },
                     () => { this._isAdmin = false; resolve(); }
@@ -149,6 +151,25 @@ export class DataSource {
                     () => { this._isAdmin = false; resolve(); }
                 )
             }
+        });
+    }
+
+    // Set Title
+    private static SetTitle(): PromiseLike<void> {
+        // Return a promise
+        return new Promise((resolve) => {
+            // Temporary variable to hold the project's default name
+            let originalName: string = Strings.ProjectName;
+
+            // Set the project name
+            if (this._cfg.dashboardTitle) {
+                Strings.ProjectName = this._cfg.dashboardTitle;
+            } else {
+                Strings.ProjectName = originalName;
+            }
+
+            // Resolve the request
+            resolve();
         });
     }
 

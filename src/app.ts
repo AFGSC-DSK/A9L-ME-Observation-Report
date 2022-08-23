@@ -1,4 +1,4 @@
-import { Dashboard, ItemForm, LoadingDialog } from "dattatable";
+import { Dashboard, Footer, ItemForm, LoadingDialog } from "dattatable";
 import { Components, ContextInfo, Web } from "gd-sprest-bs";
 import * as jQuery from "jquery";
 import { DataSource, IItem } from "./ds";
@@ -7,6 +7,7 @@ import * as moment from "moment";
 import { deleteForms } from "./deleteForms";
 import { Options } from "./options";
 import { xSquareFill } from "gd-sprest-bs/build/icons/svgs/xSquareFill";
+import { Field } from "gd-sprest-bs/src/components/components";
 
 /**
  * Main Application
@@ -28,8 +29,9 @@ export class App {
         this.render();
     }
 
+    // Create view-edit form
     private formViewEdit(item) {
-        // Show edit form if admin or view form if not
+        // Show the form as edit if admin
         if (this._isAdmin) {
             // Show the edit form
             ItemForm.edit({
@@ -54,7 +56,7 @@ export class App {
                 }
             });
         } else {
-            // Show the edit form
+            // Show the form as view-only
             ItemForm.view({
                 itemId: item.Id,
                 onSetFooter: (elFooter) => {
